@@ -42,8 +42,10 @@ def make_backup(file):
 def main():
 	
 	save_dir = None
-	with open(os.path.join(os.path.dirname(sys.argv[0]), 'save_dir.txt'), 'r') as f:
-		save_dir = f.readlines()[0:0]
+	save_dir_file = os.path.join(os.path.dirname(sys.argv[0]), 'save_dir.txt')
+	if os.path.isfile(save_dir_file):
+		with open(save_dir_file, 'r') as f:
+			save_dir = f.readlines()[0:0]
 	old_save_dir = save_dir
 	
 	if not save_dir:
@@ -59,7 +61,7 @@ def main():
 			return
 	
 	if save_dir != old_save_dir:
-		with open(os.path.join(os.path.dirname(sys.argv[0]), 'save_dir.txt'), 'w') as f:
+		with open(save_dir_file, 'w') as f:
 			f.write(save_dir)
 	
 	# save slot loop
