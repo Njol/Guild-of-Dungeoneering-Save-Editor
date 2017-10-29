@@ -114,7 +114,7 @@ def main():
 		current_slot = int(selected_option.shortcut_key) - 1
 		data = slots[current_slot]
 		old_save = slots_amf[current_slot]
-		
+		save_file = os.path.join(save_dir, 'slot'+str(current_slot + 1)+'.sav')
 		
 		
 		# main loop
