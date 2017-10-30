@@ -425,7 +425,7 @@ def handle_hero_resurrection(data):
 				+ all_hero_options[start_index : start_index + visible_rows]
 				+ [[(down_arrow if start_index < invisible_rows else Padding(['']))]])
 	for i, hero in enumerate(valid_dead_heroes):
-		option = Option('• '+hero['name']+' ('+hero['heroClass']+')')
+		option = Option('• {: <12s} {: <16s} | {: >3d} quests completed | {: >5d} gold earned | {: >4d} monsters killed'.format(hero['name'], '('+hero['heroClass']+')', hero['dungeonRuns'], hero['gloryEarned'], hero['kills']))
 		option.hero = hero
 		if invisible_rows > 0:
 			option.arrow_key_pressed = lambda dir, i=i: update_visible_rows(dir, i)
@@ -448,6 +448,9 @@ def handle_hero_resurrection(data):
 			for attrib in living_hero: # dead heroes have more attributes
 				hero[attrib], living_hero[attrib] = living_hero[attrib], hero[attrib]
 			break
+	else: # no living hero of the given class
+		data['heroes'].append(hero)
+		data['deadHeroes'].remove(hero)
 
 
 
